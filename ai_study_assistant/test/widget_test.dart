@@ -1,30 +1,31 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:ai_study_assistant/main.dart';
+// Make sure this matches your actual project name!
+import 'package:ai_study_assistant/main.dart'; 
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const AIStudyApp());
+  testWidgets('Simulate first-time user (Shows Download Screen)', (WidgetTester tester) async {
+    // 1. Build our app, passing 'false' for isDownloaded
+    await tester.pumpWidget(const AIStudyApp(isDownloaded: false));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // 2. Verify we see the Download Screen text
+    expect(find.text('AI Engine Setup'), findsOneWidget);
+    expect(find.text('Download Engine'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
+    // 3. Verify the old counter '0' is completely gone
     expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  });
+
+  testWidgets('Simulate returning user (Shows Chat Screen)', (WidgetTester tester) async {
+    // 1. Build our app, passing 'true' for isDownloaded
+    await tester.pumpWidget(const AIStudyApp(isDownloaded: true));
+
+    // 2. Verify we bypassed the download and see the Chat Screen
+    expect(find.text('AI Study Assistant'), findsOneWidget);
+    expect(find.text('Ask a question or paste text...'), findsOneWidget);
+    
+    // 3. Verify the download screen text is nowhere to be found
+    expect(find.text('AI Engine Setup'), findsNothing);
   });
 }

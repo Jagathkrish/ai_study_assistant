@@ -1,45 +1,50 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
+# ---------------------------------------------------
+# NODELEARN CUSTOM IGNORES
+# ---------------------------------------------------
 
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
+# 1. Massive AI Models (CRITICAL: Prevents Git crash)
+*.task
+*.tflite
+*.bin
+assets/models/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# 2. Android Security Keys (Never share these publicly!)
+*.jks
+*.keystore
+android/key.properties
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# 3. Compiled Apps (Safety net just in case they escape the build folder)
+*.apk
+*.aab
+
+# 4. Local Offline Databases (Hive)
+*.hive
+*.lock
+
+# ---------------------------------------------------
+# FLUTTER / DART (Recommended)
+# ---------------------------------------------------
 .dart_tool/
+.flutter-plugins
 .flutter-plugins-dependencies
-.pub-cache/
+.packages
 .pub/
-/build/
-/coverage/
+.pub-cache/
+build/
+coverage/
 
-# Symbolication related
-app.*.symbols
+# CocoaPods / platform generated files
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/ephemeral/
+macos/Pods/
+macos/Flutter/ephemeral/
 
-# Obfuscation related
-app.*.map.json
+# IDEs
+.idea/
+.vscode/
+*.iml
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# OS / misc
+.DS_Store
+Thumbs.db

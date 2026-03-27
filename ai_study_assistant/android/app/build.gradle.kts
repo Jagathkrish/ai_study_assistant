@@ -20,21 +20,33 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.ai_study_assistant"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        
+        // --- CRITICAL CHANGE FOR AI ---
+        // MediaPipe/Gemma requires at least API level 24.
+        minSdk = 24 
+        
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
+    // --- NEW BLOCK: PREVENTS THE MEDIA-PIPE ZIP ERROR ---
+    androidResources {
+        noCompress.add("task")
+        noCompress.add("bin")
+    }
+    // ----------------------------------------------------
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
+            
+            // Proguard can sometimes strip away AI libraries. 
+            // If the app crashes in Release mode, we may need to add rules here.
+            isMinifyEnabled = false
+            isShrinkResources = false
         }
     }
 }
